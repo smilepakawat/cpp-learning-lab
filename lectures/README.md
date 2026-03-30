@@ -76,6 +76,22 @@ c++ pure functions
     - can have loop and use their own local variables
 example
 ```cpp
+constexpr int square(int x) {
+    return x * x;
+}
+```
+
+if and switch with init (C++17)
+```cpp
+if (auto it = m.find(key); it != m.end()) {
+    // it is visible here
+}
+
+switch (Status s = get_status(); s) {
+    case Status::ready:
+        // ...
+        break;
+}
 ```
 
 pointer, arrays and references
@@ -121,7 +137,37 @@ enum class vs plain enum
 
 4.uninions
 ```cpp
+union Value {
+    int i;
+    double d;
+};
+```
 
+std::variant (C++17)
+- A type-safe union.
+```cpp
+#include <variant>
+std::variant<int, double> v = 42;
+v = 3.14;
+int i = std::get<double>(v); // access
+```
+
+std::optional (C++17)
+- Represents a value that may or may not be present.
+```cpp
+#include <optional>
+std::optional<string> find_user(int id) {
+    if (exists(id)) return "User Name";
+    return std::nullopt;
+}
+```
+
+std::any (C++17)
+- Can hold a value of any type.
+```cpp
+#include <any>
+std::any a = 1;
+a = "hello"s;
 ```
 
 ## Modularity
@@ -130,14 +176,41 @@ separate compileation
 
 namespace
 ```cpp
+namespace MyLib {
+    void f();
+}
+
+// Nested namespaces (C++17)
+namespace MyLib::Internal {
+    void g();
+}
 ```
 
 function arguments and return values
     - arguent passing
     - value return
-    - copy elision
-    - return type deduction
-    - structure binding
+    - copy elision: optimization that avoids unnecessary copies.
+    - return type deduction: using auto to deduce the return type.
+    - structure binding: decompose an object into multiple variables (C++17).
+
+Example: Structured binding (C++17)
+```cpp
+struct Point { int x, y; };
+Point p{10, 20};
+auto [x, y] = p; // x = 10, y = 20
+
+std::map<string, int> m;
+for (const auto& [name, age] : m) {
+    // ...
+}
+```
+
+Example: Return type deduction
+```cpp
+auto add(int a, int b) {
+    return a + b;
+}
+```
 
 ## Error Handling
 exceptions
@@ -153,20 +226,82 @@ concrete types
     - a container
     - constructor/destructor combination
 abstract types
-    - container interface
-    - vector container
-    - list container
+- Interfaces with pure virtual functions.
+```cpp
+class Container {
+public:
+    virtual double& operator[](int) = 0;
+    virtual int size() const = 0;
+    virtual ~Container() {}
+};
+```
+- vector container (implements Container)
+- list container (implements Container)
+
 virtual functions
-    - create simulation virtual function table
+- Dynamically bound functions.
+```cpp
+class Shape {
+public:
+    virtual void draw() = 0; // Pure virtual
+    virtual ~Shape() {}
+};
+```
+
 class hierarchies
-    - create example class hierarchirs
-    - avoiding resource leaks
-        - unique_ptr
+```cpp
+class Circle : public Shape {
+public:
+    void draw() override { /* ... */ }
+};
+```
+
+avoiding resource leaks
+- Use smart pointers (RAII).
+```cpp
+std::unique_ptr<Shape> s = std::make_unique<Circle>();
+s->draw(); // Automatically destroyed when s goes out of scope.
+```
 
 ## Resource Management
-default implementations
-conversion
-member initializer
-copy and move
+- RAII (Resource Acquisition Is Initialization).
+- default implementations: using =default and =delete.
+- conversion: explicit vs implicit.
+- member initializer: initialize members directly in the constructor.
+- copy and move: ensure correct resource handling.
+
+Example: Member initializer
+```cpp
+class Vector {
+    double* elem;
+    int sz;
+public:
+    Vector(int s) : elem{new double[s]}, sz{s} {} // Initializer list
+};
+```
+
+Example: Move semantics (C++11) and Structured bindings (C++17)
+```cpp
+std::vector<string> v;
+v.push_back(std::move(s)); // Transfers ownership
+```
+
+std::string_view (C++17)
+- Non-owning view of a string.
+```cpp
+#include <string_view>
+void log(std::string_view msg) {
+    std::cout << msg << std::endl;
+}
+```
+
+std::filesystem (C++17)
+- File system manipulation.
+```cpp
+#include <filesystem>
+namespace fs = std::filesystem;
+fs::path p = "data/order_book.csv";
+if (fs::exists(p)) { /* ... */ }
+```
 
 
