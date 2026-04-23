@@ -8,6 +8,6 @@
 int main() {
   // MerkelMain app{};
   // app.init();
-  CSVReader reader;
+  CSVReader::readCSV("data/order_book.csv");
   return 0;
 }
