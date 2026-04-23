@@ -1,14 +1,15 @@
 #include "MerkelMain.h"
+#include "CSVReader.h"
+#include "OrderBookEntry.h"
 #include <iostream>
 #include <vector>
-#include "OrderBookEntry.h"
 
 MerkelMain::MerkelMain() {}
 
 void MerkelMain::init() {
   loadOrderBook();
   int input;
-  while(true) {
+  while (true) {
     printMenu();
     input = getUserOption();
     processUserOption(input);
@@ -16,15 +17,7 @@ void MerkelMain::init() {
 }
 
 void MerkelMain::loadOrderBook() {
-  orders.push_back(
-      OrderBookEntry{
-        1000,
-        0.02,
-        "2020/03/17 17:01:24.884492",
-        "BTC/USDT",
-        OrderBookType::bid
-      }
-  );
+  orders = CSVReader::readCSV("data/order_book.csv");
 }
 
 void MerkelMain::printMenu() {
@@ -33,7 +26,7 @@ void MerkelMain::printMenu() {
   // 2 print exchange stats
   std::cout << "2: Print exchange stats" << std::endl;
   // 3 make an offer
-  std::cout << "3: Place an ask"<< std::endl;
+  std::cout << "3: Place an ask" << std::endl;
   // 4 make a bid
   std::cout << "4: Place a bid" << std::endl;
   // 5 print wallet
@@ -51,6 +44,20 @@ void MerkelMain::printHelp() {
 
 void MerkelMain::printMarketStats() {
   std::cout << "Order book contains " << orders.size() << std::endl;
+
+  unsigned int bids = 0;
+  unsigned int asks = 0;
+
+  for (OrderBookEntry &e : orders) {
+    if (e.orderType == OrderBookType::ask) {
+      asks++;
+    }
+    if (e.orderType == OrderBookType::bid) {
+      bids++;
+    }
+  }
+
+  std::cout << "Order book asks: " << asks << " bids: " << bids << std::endl;
 }
 
 void MerkelMain::enterOffer() {
@@ -65,9 +72,7 @@ void MerkelMain::printWallet() {
   std::cout << "Your wallet is empty." << std::endl;
 }
 
-void MerkelMain::gotoNextTimeframe() {
-  std::cout << "Continue." << std::endl;
-}
+void MerkelMain::gotoNextTimeframe() { std::cout << "Continue." << std::endl; }
 
 int MerkelMain::getUserOption() {
   int userOption;
@@ -100,4 +105,3 @@ void MerkelMain::processUserOption(int userOption) {
     gotoNextTimeframe();
   }
 }
-
