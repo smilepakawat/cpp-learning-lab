@@ -25,5 +25,13 @@ std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
                                                  std::string product,
                                                  std::string timestamp) {
   std::vector<OrderBookEntry> ordersSub;
+
+  for (OrderBookEntry &e : orders) {
+    if (e.orderType == type && e.product == product &&
+        e.timestamp == timestamp) {
+      ordersSub.push_back(e);
+    }
+  }
+
   return ordersSub;
 }
