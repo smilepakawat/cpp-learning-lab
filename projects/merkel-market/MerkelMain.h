@@ -21,5 +21,5 @@ private:
   int getUserOption();
   void processUserOption(int userOption);
 
-  OrderBook OrderBook{"order_book.csv"};
+  OrderBook orderBook{"./data/order_book.csv"};
 };
