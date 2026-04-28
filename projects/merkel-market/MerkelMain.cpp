@@ -7,17 +7,12 @@
 MerkelMain::MerkelMain() {}
 
 void MerkelMain::init() {
-  loadOrderBook();
   int input;
   while (true) {
     printMenu();
     input = getUserOption();
     processUserOption(input);
   }
-}
-
-void MerkelMain::loadOrderBook() {
-  orders = CSVReader::readCSV("data/order_book.csv");
 }
 
 void MerkelMain::printMenu() {
@@ -43,21 +38,22 @@ void MerkelMain::printHelp() {
 }
 
 void MerkelMain::printMarketStats() {
-  std::cout << "Order book contains " << orders.size() << std::endl;
-
-  unsigned int bids = 0;
-  unsigned int asks = 0;
-
-  for (OrderBookEntry &e : orders) {
-    if (e.orderType == OrderBookType::ask) {
-      asks++;
-    }
-    if (e.orderType == OrderBookType::bid) {
-      bids++;
-    }
-  }
-
-  std::cout << "Order book asks: " << asks << " bids: " << bids << std::endl;
+  // TODO
+  // std::cout << "Order book contains " << orders.size() << std::endl;
+  //
+  // unsigned int bids = 0;
+  // unsigned int asks = 0;
+  //
+  // for (OrderBookEntry &e : orders) {
+  //   if (e.orderType == OrderBookType::ask) {
+  //     asks++;
+  //   }
+  //   if (e.orderType == OrderBookType::bid) {
+  //     bids++;
+  //   }
+  // }
+  //
+  // std::cout << "Order book asks: " << asks << " bids: " << bids << std::endl;
 }
 
 void MerkelMain::enterOffer() {

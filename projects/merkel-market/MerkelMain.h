@@ -1,25 +1,25 @@
 #pragma once
 
-#include <vector>
+#include "OrderBook.h"
 #include "OrderBookEntry.h"
+#include <vector>
 
 class MerkelMain {
-  public:
-    MerkelMain();
-    /** Call this to start the sim*/
-    void init();
-  private:
-    void loadOrderBook();
-    void printMenu();
-    void printHelp();
-    void printMarketStats();
-    void enterOffer();
-    void enterBid();
-    void printWallet();
-    void gotoNextTimeframe();
-    int getUserOption();
-    void processUserOption(int userOption);
+public:
+  MerkelMain();
+  /** Call this to start the sim*/
+  void init();
 
-    std::vector<OrderBookEntry> orders;
+private:
+  void printMenu();
+  void printHelp();
+  void printMarketStats();
+  void enterOffer();
+  void enterBid();
+  void printWallet();
+  void gotoNextTimeframe();
+  int getUserOption();
+  void processUserOption(int userOption);
+
+  OrderBook OrderBook{"order_book.csv"};
 };
-
