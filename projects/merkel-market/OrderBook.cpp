@@ -36,6 +36,8 @@ std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
   return ordersSub;
 }
 
+std::string OrderBook::getEarliestTime() { return orders[0].timestamp; }
+
 double OrderBook::getHighPrice(std::vector<OrderBookEntry> &orders) {
   double max = orders[0].price;
 
