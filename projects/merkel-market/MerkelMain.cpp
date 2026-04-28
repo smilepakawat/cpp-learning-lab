@@ -77,7 +77,10 @@ void MerkelMain::printWallet() {
   std::cout << "Your wallet is empty." << std::endl;
 }
 
-void MerkelMain::gotoNextTimeframe() { std::cout << "Continue." << std::endl; }
+void MerkelMain::gotoNextTimeframe() {
+  std::cout << "Continue." << std::endl;
+  currentTime = orderBook.getNextTime(currentTime);
+}
 
 int MerkelMain::getUserOption() {
   int userOption;
