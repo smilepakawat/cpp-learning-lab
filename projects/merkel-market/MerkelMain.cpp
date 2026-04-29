@@ -66,12 +66,12 @@ void MerkelMain::printMarketStats() {
   // std::cout << "Order book asks: " << asks << " bids: " << bids << std::endl;
 }
 
-void MerkelMain::enterOffer() {
-  std::cout << "Place an ask - enter the amount." << std::endl;
+void MerkelMain::enterAsk() {
+  std::cout << "Make an ask - enter the amount." << std::endl;
 }
 
 void MerkelMain::enterBid() {
-  std::cout << "Place a bid - enter the amount." << std::endl;
+  std::cout << "Make a bid - enter the amount." << std::endl;
 }
 
 void MerkelMain::printWallet() {
@@ -102,7 +102,7 @@ void MerkelMain::processUserOption(int userOption) {
     printMarketStats();
   }
   if (userOption == 3) {
-    enterOffer();
+    enterAsk();
   }
   if (userOption == 4) {
     enterBid();
