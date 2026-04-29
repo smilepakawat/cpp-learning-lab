@@ -47,6 +47,7 @@ void MerkelMain::printMarketStats() {
     std::cout << "Asks seen: " << entries.size() << std::endl;
     std::cout << "Max ask: " << OrderBook::getHighPrice(entries) << std::endl;
     std::cout << "Min ask: " << OrderBook::getLowPrice(entries) << std::endl;
+    std::cout << "Avg ask: " << OrderBook::getAvgPrice(entries) << std::endl;
   }
   // std::cout << "Order book contains " << orders.size() << std::endl;
   //

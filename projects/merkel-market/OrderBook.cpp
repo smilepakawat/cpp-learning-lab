@@ -78,3 +78,13 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry> &orders) {
 
   return min;
 }
+
+double OrderBook::getAvgPrice(std::vector<OrderBookEntry> &orders) {
+  long double sum = 0;
+
+  for (OrderBookEntry &e : orders) {
+    sum += e.price;
+  }
+
+  return sum / orders.size();
+}
