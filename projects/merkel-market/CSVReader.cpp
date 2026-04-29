@@ -54,6 +54,26 @@ std::vector<std::string> CSVReader::tokenise(std::string csvLine,
   return tokens;
 }
 
+OrderBookEntry CSVReader::stringsToOBE(std::string priceString,
+                                       std::string amountString,
+                                       std::string timestamp,
+                                       std::string product,
+                                       OrderBookType orderBookType) {
+
+  double price, amount;
+
+  try {
+    price = std::stod(priceString);
+    amount = std::stod(amountString);
+  } catch (std::exception &e) {
+    std::cout << "CSVReader::stringsToOBE Bad tokens";
+  }
+
+  OrderBookEntry obe{price, amount, timestamp, product, orderBookType};
+
+  return obe;
+}
+
 OrderBookEntry CSVReader::stringsToOBE(std::vector<std::string> tokens) {
   double price, amount;
 
