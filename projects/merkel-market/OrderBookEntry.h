@@ -9,6 +9,7 @@ public:
   OrderBookEntry(double _price, double _amount, std::string _timestamp,
                  std::string _product, OrderBookType _orderType);
   static OrderBookType stringToOrderBookType(std::string s);
+  static bool compareByTimestamp(OrderBookEntry &e1, OrderBookEntry &e2);
 
   double price;
   double amount;
