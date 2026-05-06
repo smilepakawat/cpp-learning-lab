@@ -55,6 +55,11 @@ std::string OrderBook::getNextTime(std::string timestamp) {
   return nextTimestamp;
 }
 
+void OrderBook::insertOrder(OrderBookEntry &order) {
+  orders.push_back(order);
+  std::sort(orders.begin(), orders.end(), OrderBookEntry::compareByTimestamp);
+}
+
 double OrderBook::getHighPrice(std::vector<OrderBookEntry> &orders) {
   double max = orders[0].price;
 
@@ -87,9 +92,4 @@ double OrderBook::getAvgPrice(std::vector<OrderBookEntry> &orders) {
   }
 
   return sum / orders.size();
-}
-
-void OrderBook::insertOrder(OrderBookEntry &order) {
-  orders.push_back(order);
-  std::sort(orders.begin(), orders.end(), OrderBookEntry::compareByTimestamp);
 }

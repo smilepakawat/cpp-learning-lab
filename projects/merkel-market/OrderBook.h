@@ -13,10 +13,11 @@ public:
   std::string getEarliestTime();
   std::string getNextTime(std::string timestamp);
 
+  void insertOrder(OrderBookEntry &order);
+
   static double getHighPrice(std::vector<OrderBookEntry> &orders);
   static double getLowPrice(std::vector<OrderBookEntry> &orders);
   static double getAvgPrice(std::vector<OrderBookEntry> &orders);
-  void insertOrder(OrderBookEntry &order);
 
 private:
   std::vector<OrderBookEntry> orders;
