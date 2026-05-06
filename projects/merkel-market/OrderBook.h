@@ -15,6 +15,8 @@ public:
 
   void insertOrder(OrderBookEntry &order);
 
+  std::vector<OrderBookEntry> matchAsksToBids();
+
   static double getHighPrice(std::vector<OrderBookEntry> &orders);
   static double getLowPrice(std::vector<OrderBookEntry> &orders);
   static double getAvgPrice(std::vector<OrderBookEntry> &orders);
