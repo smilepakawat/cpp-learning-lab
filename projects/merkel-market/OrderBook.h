@@ -15,7 +15,7 @@ public:
 
   void insertOrder(OrderBookEntry &order);
 
-  std::vector<OrderBookEntry> matchAsksToBids();
+  std::vector<OrderBookEntry> matchAsksToBids(std::string product, std::string timestamp);
 
   static double getHighPrice(std::vector<OrderBookEntry> &orders);
   static double getLowPrice(std::vector<OrderBookEntry> &orders);
