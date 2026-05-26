@@ -1,5 +1,6 @@
 #pragma once
 
+#include "OrderBookEntry.h"
 #include <map>
 #include <string>
 
@@ -9,6 +10,7 @@ public:
   void insertCurrency(std::string type, double amount);
   bool removeCurrency(std::string type, double amount);
   bool containsCurrency(std::string type, double amount);
+  bool canFulfillOrder(OrderBookEntry order);
   std::string toString();
 
 private:
