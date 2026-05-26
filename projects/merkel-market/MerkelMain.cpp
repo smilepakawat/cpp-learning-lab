@@ -73,6 +73,7 @@ void MerkelMain::enterAsk() {
   std::string input;
   std::getline(std::cin, input);
   std::vector<std::string> tokens = CSVReader::tokenise(input, ',');
+
   if (tokens.size() != 3) {
     std::cout << "MerkelMain::enterAsk Bad input! " << input << std::endl;
   } else {
@@ -80,10 +81,17 @@ void MerkelMain::enterAsk() {
       OrderBookEntry obe = CSVReader::stringsToOBE(
           tokens[1], tokens[2], currentTime, tokens[0], OrderBookType::ask);
       orderBook.insertOrder(obe);
+      if (wallet.canFulfillOrder(obe)) {
+        std::cout << "Wallet looks good." << std::endl;
+        orderBook.insertOrder(obe);
+      } else {
+        std::cout << "Wallet has insufficient funds." << std::endl;
+      }
     } catch (const std::exception &e) {
       std::cout << "MerkelMain::enterAsk Bad input " << std::endl;
     }
   }
+
   std::cout << "You typed: " << input << std::endl;
 }
 
