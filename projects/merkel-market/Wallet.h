@@ -1,3 +1,5 @@
+#pragma once
+
 #include <map>
 #include <string>
 
@@ -11,4 +13,4 @@ public:
 
 private:
   std::map<std::string, double> currencies;
-}
+};
